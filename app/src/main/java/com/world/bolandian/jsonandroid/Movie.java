@@ -1,12 +1,15 @@
 package com.world.bolandian.jsonandroid;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by Bolandian on 16/05/2017.
  */
 
-public class Movie {
+public class Movie implements Parcelable {
 
     private final String title;
     private final String image;
@@ -21,6 +24,26 @@ public class Movie {
         this.releaseYear = releaseYear;
         this.genre = genre;
     }
+
+    protected Movie(Parcel in) {
+        title = in.readString();
+        image = in.readString();
+        rating = in.readDouble();
+        releaseYear = in.readInt();
+        genre = in.createStringArrayList();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -42,14 +65,18 @@ public class Movie {
         return genre;
     }
 
+
     @Override
-    public String toString() {
-        return "Movie{" +
-                "title='" + title + '\'' +
-                ", image='" + image + '\'' +
-                ", rating=" + rating +
-                ", releaseYear=" + releaseYear +
-                ", genre=" + genre +
-                '}';
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(image);
+        dest.writeDouble(rating);
+        dest.writeInt(releaseYear);
+        dest.writeStringList(genre);
     }
 }

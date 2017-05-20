@@ -1,6 +1,7 @@
 package com.world.bolandian.jsonandroid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private LayoutInflater inflater;
     private Context context;
     private List<Movie> movieList;
+    public static final String MOVIE = "movie";
 
 
     public MovieAdapter(Context context, List<Movie> movieList) {
@@ -56,7 +58,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             TextView title,rating,releaseYear,genre;
             ImageView image;
 
-
         public MovieViewHolder(View itemView) {
             super(itemView);
             title = (TextView)itemView.findViewById(R.id.tvTitleMovie);
@@ -64,7 +65,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             releaseYear = (TextView)itemView.findViewById(R.id.tvRelease);
             genre = (TextView)itemView.findViewById(R.id.tvGenre);
             image = (ImageView)itemView.findViewById(R.id.imageView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    Movie movie = movieList.get(position);
+
+                    Intent i = new Intent(context,MovieDisplay.class);
+                    i.putExtra(MOVIE,movie);
+
+                    context.startActivity(i);
+
+                }
+            });
         }
+
     }
 
     public static Drawable LoadImageFromWebOperations(String url) {
