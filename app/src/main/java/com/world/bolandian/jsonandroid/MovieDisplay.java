@@ -27,6 +27,7 @@ public class MovieDisplay extends AppCompatActivity {
         ivPic = (ImageView)findViewById(R.id.ivPic);
 
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setDataFromAdapter();
