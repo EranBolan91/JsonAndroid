@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
@@ -46,6 +48,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.genre.setText(String.valueOf(movie.getGenre()));
        // holder.image.setImageDrawable(LoadImageFromWebOperations(movie.getImage()));
       //  holder.image.setImageURI(Uri.parse((movie.getImage())));
+        Picasso.with(context).load(movie.getImage()).resize(180,200).into(holder.image);
     }
 
     @Override
